@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Finanças Pessoais</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+<!-- LOGIN -->
+
+<div id="login" class="loginBox">
+<div class="loginCard">
+
+<h2>💰 Controle Financeiro</h2>
+
+<input id="email" placeholder="Seu Email">
+<input id="senha" type="password" placeholder="Sua Senha">
+
+<button onclick="login()">Entrar</button>
+
+<button onclick="registrar()" style="background:#10b981;">
+Criar conta
+</button>
+
+</div>
+</div>
+
+<!-- APP -->
+
+<div id="app" class="container hidden">
+
+<div class="topbar">
+
+<button class="iconBtn" onclick="tema()">
+<i class="fas fa-moon"></i>
+</button>
+
+<div class="perfil">
+
+<img src="https://i.pravatar.cc/40" class="fotoPerfil">
+
+<span id="emailUser">Usuário</span>
+
+<button class="iconBtn" onclick="logout()" style="width:30px;height:30px;">
+<i class="fas fa-sign-out-alt"></i>
+</button>
+
+</div>
+</div>
+
+<div class="dashboard">
+
+<div class="box">
+<div>Saldo Atual</div>
+<div id="saldo" class="saldo">R$0,00</div>
+</div>
+
+<div class="box">
+<div>Receitas</div>
+<div id="totalReceita" class="verde">R$0,00</div>
+</div>
+
+<div class="box">
+<div>Gastos</div>
+<div id="totalGasto" class="vermelho">R$0,00</div>
+</div>
+
+</div>
+
+<!-- RECEITA -->
+
+<div class="card">
+
+<h3>💰 Nova Receita</h3>
+
+<input id="receitaDesc" placeholder="Descrição">
+
+<input id="receitaValor" type="number" placeholder="Valor">
+
+<button onclick="addReceita()">Adicionar Receita</button>
+
+</div>
+
+<!-- GASTO -->
+
+<div class="card">
+
+<h3>💸 Novo Gasto</h3>
+
+<input id="gastoDesc" placeholder="Descrição">
+
+<input id="gastoValor" type="number" placeholder="Valor">
+
+<select id="categoria">
+<option>Comida</option>
+<option>Transporte</option>
+<option>Casa</option>
+<option>Lazer</option>
+<option>Outros</option>
+</select>
+
+<button onclick="addGasto()">Adicionar Gasto</button>
+
+</div>
+
+<!-- FILTRO -->
+
+<div class="card">
+
+<h3>Filtro</h3>
+
+<select id="filtroMes" onchange="filtrarMes()">
+
+<option value="todos">Todos os meses</option>
+<option value="0">Janeiro</option>
+<option value="1">Fevereiro</option>
+<option value="2">Março</option>
+<option value="3">Abril</option>
+<option value="4">Maio</option>
+<option value="5">Junho</option>
+<option value="6">Julho</option>
+<option value="7">Agosto</option>
+<option value="8">Setembro</option>
+<option value="9">Outubro</option>
+<option value="10">Novembro</option>
+<option value="11">Dezembro</option>
+
+</select>
+
+<button onclick="exportarCSV()">Exportar CSV</button>
+
+</div>
+
+<!-- GRAFICO -->
+
+<div class="card">
+
+<h3>📊 Distribuição de Gastos</h3>
+
+<canvas id="grafico"></canvas>
+
+</div>
+
+<!-- EXTRATO -->
+
+<div class="card">
+
+<h3>📜 Extrato Recente</h3>
+
+<ul id="lista"></ul>
+
+</div>
+
+<!-- ADMIN -->
+
+<div id="adminPanel" class="card hidden">
+
+<h3>⚙ Painel Administrador</h3>
+
+<p>Total usuários: <span id="adminUsers">0</span></p>
+
+<p>Total transações: <span id="adminTransacoes">0</span></p>
+
+<p>Total movimentado: <span id="adminValor">0</span></p>
+
+<button onclick="carregarAdmin()">Atualizar</button>
+
+</div>
+
+</div>
+
+<footer>
+Finanças Pessoais v1.2
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
